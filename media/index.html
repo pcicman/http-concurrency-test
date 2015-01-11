@@ -31,7 +31,7 @@
 
         function makeRequest(i) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', './' + uuid + '/' + i + '/');
+            xhr.open('GET', './' + uuid + '/' + i + '/' + (/#huge/.test(window.location.href) ? 'huge': ''));
 
             xhr.onreadystatechange = function(){
                 if (xhr.readyState === 4) {

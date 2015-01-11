@@ -12,7 +12,8 @@ var http = require('http'),
 
 var mimeTypes = {
     "html": "text/html",
-    "jpg": "image/jpeg"
+    "jpg": "image/jpeg",
+    "png": "image/png"
 };
 
 // global results cache
@@ -47,7 +48,7 @@ function getTestContent(req, res, uuid, cnt) {
         }
         results[uuid].data.push([start, end, cnt]);
     });
-    sendFile(req, res, 'media/test.jpg');
+    sendFile(req, res, 'media/' + (req.url.match('/huge') ? 'test-huge.png' : 'test.jpg'));
 }
 
 function getResults(req, res, uuid) {
