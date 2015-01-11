@@ -3,6 +3,8 @@
 <body>
     <p>Testting..</p>
     <script>
+        var testHuge = /#huge/.test(window.location.href);
+
         var guid = (function() {
             function s4() {
                 return Math.floor((1 + Math.random()) * 0x10000)
@@ -15,7 +17,7 @@
             };
         })();
 
-        var requests = 50,
+        var requests = testHuge ? 15 : 50,
             remaining = requests,
             uuid = guid();
 
@@ -31,7 +33,7 @@
 
         function makeRequest(i) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', './' + uuid + '/' + i + '/' + (/#huge/.test(window.location.href) ? 'huge': ''));
+            xhr.open('GET', './' + uuid + '/' + i + '/' + (testHuge ? 'huge': ''));
 
             xhr.onreadystatechange = function(){
                 if (xhr.readyState === 4) {
