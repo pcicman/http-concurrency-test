@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>Testting..</p>
+    <script>
+        var guid = (function() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                        .toString(16)
+                        .substring(1);
+            }
+            return function() {
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                        s4() + '-' + s4() + s4() + s4();
+            };
+        })();
+
+        var requests = 50,
+            remaining = requests,
+            uuid = guid();
+
+        function showResults(){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './' + uuid + '/');
+            xhr.onload = function(){
+                var data = JSON.parse(this.response);
+                document.querySelector('p').innerText = data.error ? 'Error: ' + data.error : 'Max concurrent requests: ' + data.data.concurrent;
+            }
+            xhr.send();
+        }
+
+        function makeRequest(i) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './' + uuid + '/' + i + '/');
+
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4) {
+                    // request done;
+                    remaining--;
+                    document.querySelector('p').innerText = (requests - remaining) + '/' + requests;
+                    if (remaining === 0) {
+                        showResults();
+                    }
+                }
+            }
+            xhr.send();
+        }
+
+
+        for (var i = 0; i < requests; i++) {
+            makeRequest(i);
+        }
+
+    </script>
+</body>
+</html>
