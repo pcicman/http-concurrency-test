@@ -125,7 +125,7 @@ process.on('exit', function() {
     log.end(''); // close stream
 });
 
-var LOG = 10; // 10 seconds
+var LOG = 1000; // 1 second
 setInterval(function(){
     var invalidate = Date.now() - INVALIDATE_AFTER;
     for (var uuid in results) {
