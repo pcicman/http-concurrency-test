@@ -100,7 +100,7 @@ var server = http.createServer(function (req, res) {
     res.end('Not found');
 });
 
-server.listen(process.env.PORT || 9000, process.env.HOST || '0.0.0.0');
+server.listen(process.env.PORT || 9001, process.env.HOST || 'localhost');
 
 
 // results cache cleaner
